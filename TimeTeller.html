@@ -7,12 +7,12 @@
 </head>
 <body>
 
-<h1>Today is:</h1>
+<h1>अद्य| Today is:</h1>
 <p id="dayDisplay"></p>
 
 <!-- Audio element (source will be set dynamically) -->
 <audio id="audioPlayer" preload="auto"></audio>
-<button id="playButton">Hear the Day</button>
+<button id="playButton">बटनं नुदन्तु| Touch Button</button>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -23,12 +23,14 @@
         function updateDay() {
             const now = new Date();
             const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const wasara = ["रवि वासर:", "सोम वासर:", "भौम वासर:", "बुध वासर:", "बृहस्पति वासर:", "शुक्र वासर:", "मन्द वासर:"];
             const currentDay = weekdays[now.getDay()]; // Get the full day name
+            const adhya = wasara[now.getDay()];
 
-            dayDisplay.textContent = currentDay;
+            dayDisplay.textContent = adhya + "| " + currentDay;
 
             // Assign corresponding audio file
-            audioPlayer.src = `resources/${currentDay.toLowerCase()}.mp3`; // e.g., resources/monday.mp3
+            audioPlayer.src = `/resources/${currentDay.toLowerCase()}.mp3`; // e.g., resources/monday.mp3
         }
 
         function playAudioForDay() {
