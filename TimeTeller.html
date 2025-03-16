@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day & Audio Player</title>
+</head>
+<body>
+
+<h1>Today is:</h1>
+<p id="dayDisplay"></p>
+
+<!-- Audio element (source will be set dynamically) -->
+<audio id="audioPlayer" preload="auto"></audio>
+<button id="playButton">Hear the Day</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const dayDisplay = document.getElementById("dayDisplay");
+        const audioPlayer = document.getElementById("audioPlayer");
+        const playButton = document.getElementById("playButton");
+
+        function updateDay() {
+            const now = new Date();
+            const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const currentDay = weekdays[now.getDay()]; // Get the full day name
+
+            dayDisplay.textContent = currentDay;
+
+            // Assign corresponding audio file
+            audioPlayer.src = `resources/${currentDay.toLowerCase()}.mp3`; // e.g., resources/monday.mp3
+        }
+
+        function playAudioForDay() {
+            audioPlayer.play();
+        }
+
+        updateDay(); // Display day immediately
+        playButton.addEventListener("click", playAudioForDay); // Play audio on button click
+    });
+</script>
+
+</body>
+</html>
