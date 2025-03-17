@@ -7,11 +7,10 @@
 </head>
 <body>
 
-<h1>अद्य| Today is:</h1>
 <p id="dayDisplay"></p>
 <!-- Audio element (source will be set dynamically) -->
 <audio id="audioPlayer" preload="auto"></audio>
-<button id="playButton">बटनं नुदन्तु| Touch Button</button>
+<button id="playButton">बटनं नुदन्तु| Touch Button </button>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -19,21 +18,40 @@
         const audioPlayer = document.getElementById("audioPlayer");
         const playButton = document.getElementById("playButton");
 
+        let audioFiles = []; // To hold the list of audio files
+        let currentAudioIndex = 0; // To keep track of the current audio file in sequence
+
         function updateDay() {
             const now = new Date();
             const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             const wasara = ["रवि वासर:", "सोम वासर:", "भौम वासर:", "बुध वासर:", "बृहस्पति वासर:", "शुक्र वासर:", "मन्द वासर:"];
             const currentDay = weekdays[now.getDay()]; // Get the full day name
             const adhya = wasara[now.getDay()];
-            dayDisplay.textContent = adhya + "| " + currentDay;
 
-            // Assign corresponding audio file
-            audioPlayer.src = `resources/${currentDay.toLowerCase()}.mp3`; // e.g., resources/monday.mp3
-        }
+            audioFiles = [
+                // Assign corresponding audio file
+                `resources/adhya.mp3`,
+                `resources/${currentDay.toLowerCase()}.mp3`
+            ];
 
-        function playAudioForDay() {
-            audioPlayer.play();
+            // Update the button text dynamically
+            playButton.textContent = `🔊 अद्य ${adhya} | Today is ${currentDay}`; // Example: 🔊 सोम वासर: (Monday)
         }
+            function playNextAudio() {
+                if (currentAudioIndex < audioFiles.length) {
+                    audioPlayer.src = audioFiles[currentAudioIndex]; // Set the next audio file
+                    audioPlayer.play(); // Play the audio
+                    currentAudioIndex++; // Increment the index for the next audio
+                }
+            }
+
+            // Event listener to play the next audio once the current one ends
+            audioPlayer.addEventListener("ended", playNextAudio);
+
+            function playAudioForDay() {
+                currentAudioIndex = 0; // Reset the index to start the first audio
+                playNextAudio(); // Play the first audio file in the sequence
+            }
 
         updateDay(); // Display day immediately
         playButton.addEventListener("click", playAudioForDay); // Play audio on button click
@@ -41,7 +59,7 @@
 </script>
 
 <a href="https://www.albelaspeaks.com">
-    <button>प्रतिगन्तुम्| <b>HOME</b></button><br>
+    <br><br><br><button>गृहं प्रति पुनः | <b>BACK HOME</b></button><br>
 </a>
 <br>
 </body>
